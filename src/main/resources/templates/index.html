@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=e0b45949-0a03-4b1c-b80b-f03f29fdd7f8&lang=ru_RU"
+            type="text/javascript"></script>
+    <script type="text/javascript" th:inline="javascript">
+        ymaps.ready(init);
+        function init(){
+            var myMap = new ymaps.Map("map", {
+                center: [59.869966, 30.379045],
+                zoom: 12
+            });
+
+            //var myPlacemark2 = new ymaps.Placemark([60.02575527857526, 30.404663085937504]);
+            //var myPlacemark3 = new ymaps.Placemark([59.893070337158406, 30.46646118164063]);
+            //var myPlacemark4 = new ymaps.Placemark([59.862056997499586, 30.319519042968754]);
+            myMap.geoObjects.add(new ymaps.Placemark([59.987997631212224, 30.432128906250004]));
+            //myMap.geoObjects.add(myPlacemark2);
+           //myMap.geoObjects.add(myPlacemark3);
+            //myMap.geoObjects.add(myPlacemark4);
+
+
+        }
+    </script>
+    <script th:inline="javascript">
+        //<![CDATA[
+        var list = /*[[${doctors}]]*/ "Test";
+        alert(list);
+        //]]>
+        for (i = 0; i < list.length; i++){
+            alert(list[i].lastName);
+        }
+    </script>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="name">МедУслуги</div>
+        <div class="nav">
+            <ul>
+                <li><a href="/">Врачи</a></li>
+                <li><a href="#" onclick=alert("Модуль_Поддержка_в_разработке");>Поддержка</a></li>
+                <li><a href="/signin">Личный кабинет</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h1> Запись к врачу.</h1>
+    </div>
+    <div>
+        <h1 class="doctorText"> Поиск врача.</h1>
+    </div>
+    <div class="searchDoctor" >
+        <form method="post" >
+            <input type="text"  name="specialization" size="20" value="" class="input" placeholder="Специальность">
+            <button type="submit">Найти</button>
+        </form>
+    </div>
+
+    <div id="map"></div>
+
+</body>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"> Фамилия </th>
+        <th scope="col"> Имя </th>
+        <th scope="col"> Отчество </th>
+        <th scope="col" > Дата рождения </th>
+        <th scope="col"> Телефон </th>
+        <th scope="col"> Специализация </th>
+        <th scope="col"> Стоимость услуг </th>
+        <th scope="col"> Категория </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="doctor : ${doctors}">
+        <td scope="row"><a href="/Semenov"><span th:text="${doctor.lastName}"> Title </span></a></td>
+        <td scope="row"><span th:text="${doctor.firstName}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.patronymic}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.birth}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.phone}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.specialization}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.cost}"> Title </span></td>
+        <td scope="row"><span th:text="${doctor.category}"> Title </span></td>
+        <td scope="row"> <a href="/Semenov"> Перейти</a></td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+
+</html>
+
+
